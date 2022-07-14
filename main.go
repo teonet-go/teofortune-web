@@ -19,7 +19,7 @@ const (
 	appShort   = "teofortune-web"
 	appName    = "Teonet fortune web-server microservice application"
 	appLong    = ""
-	appVersion = "0.0.2"
+	appVersion = "0.0.3"
 )
 
 var appStartTime = time.Now()

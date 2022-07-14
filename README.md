@@ -5,13 +5,13 @@ This is simple [Teonet](https://github.com/teonet-go/teonet) web-server micriser
 [![GoDoc](https://godoc.org/github.com/teonet-go/teofortune-web?status.svg)](https://godoc.org/github.com/teonet-go/teofortune-web/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/teonet-go/teofortune-web)](https://goreportcard.com/report/github.com/teonet-go/teofortune-web)
 
-To create your own web-site you need to have host with IP address, domain and possibility to create record in this domain. We have created the `fortune.teonet.dev` web-site and run it in Teonet Cloud.
+To create your own web-site you need to have host with IP address, domain and possibility to create record in this domain. We have created the [fortune.teonet.dev](https://fortune.teonet.dev) web-site and run it in Teonet Cloud.
 
 ## Run the Teonet fortune web-site microservice
 
 There are various ways to start this Teonet microservice application:
 
-_In code blow we use preinstalled in Teonet Cloud teofortune microservice address: '-fortune=8agv3IrXQk7INHy5rVlbCxMWVmOOCoQgZBF'. 
+_In code blow we use preinstalled in Teonet Cloud teofortune microservice address: '-fortune=8agv3IrXQk7INHy5rVlbCxMWVmOOCoQgZBF'.
 Change this address to your application address. Or you can use this address, but than you will connect to `teofortune` microservice application running in Teonet Cloud. The address prints after you start Teonet application in string:_  
 `Teonet address: 8agv3IrXQk7INHy5rVlbCxMWVmOOCoQgZBF`
 
@@ -41,8 +41,9 @@ teofortune-web:latest teofortune-web \
 
 ## How to use
 
-There is preinstalled teofortune-web web-site with name @teofortune.
-Open @teofortune in Telegram and write him something.
+By default the teofortune-web site start at [localhost:8088](http://localhost:8088). If you run your web site in host with real IP you can add parameter `-domain=my.feature.example` to start real internet web server. Where the `my.feature.example` is your domain and you can create records in this domain.
+
+There is preinstalled teofortune-web web-site with name [fortune.teonet.dev](https://fortune.teonet.dev)
 
 ## Licence
 
