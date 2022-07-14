@@ -24,12 +24,12 @@ const (
 
 var appStartTime = time.Now()
 var domain, fortune, monitor string
-var prodmode bool
 
 // Params is teonet command line parameters
 var Params struct {
 	appShort    string
 	port        int
+	httpAddr	string
 	stat        bool
 	hotkey      bool
 	showPrivate bool
@@ -45,6 +45,7 @@ func main() {
 	// Parse application command line parameters
 	flag.StringVar(&Params.appShort, "name", appShort, "application short name")
 	flag.IntVar(&Params.port, "p", 0, "local port")
+	flag.StringVar(&Params.httpAddr, "addr", "localhost:8088", "http server local address")
 	flag.BoolVar(&Params.stat, "stat", false, "show statistic")
 	flag.BoolVar(&Params.hotkey, "hotkey", false, "start hotkey menu")
 	flag.BoolVar(&Params.showPrivate, "show-private", false, "show private key")
@@ -54,7 +55,6 @@ func main() {
 	flag.StringVar(&domain, "domain", "", "domain name to process HTTP/s server")
 	flag.StringVar(&fortune, "fortune", "", "fortune microservice address")
 	flag.StringVar(&monitor, "monitor", "", "monitor address")
-	flag.BoolVar(&prodmode, "prodmode", false, "static and template in config folder")
 	//
 	flag.Parse()
 
@@ -69,7 +69,7 @@ func main() {
 	}
 
 	// Initialize and run web-server
-	err = newServe(domain, prodmode, teo)
+	err = newServe(domain, Params.httpAddr, teo)
 	if err != nil {
 		log.Panic(err)
 		return

@@ -23,6 +23,7 @@ type Serve struct {
 	templates *template.Template
 }
 
+// Page struct send to HTML template
 type Page struct {
 	Name string
 	Body string
@@ -33,14 +34,14 @@ var f embed.FS
 
 // newServe create Serve object and start http server which process http
 // requests and communicate with teonet to get / set page values
-func newServe(domain string, prodmode bool, teo *Teonet) (err error) {
+func newServe(domain string, addr string, teo *Teonet) (err error) {
 	s := &Serve{teo, domain, nil}
-	err = s.serve()
+	err = s.serve(addr)
 	return
 }
 
 // serve define handlers and start http server
-func (s *Serve) serve() (err error) {
+func (s *Serve) serve(addr string) (err error) {
 
 	// Parse template files
 	s.templates = template.Must(
@@ -63,9 +64,10 @@ func (s *Serve) serve() (err error) {
 		}()
 
 		// HTTPS server
-		log.Fatal(http.Serve(autocert.NewListener(domain), nil))
+		err = http.Serve(autocert.NewListener(domain), nil)
 	} else {
-		log.Fatal(http.ListenAndServe(":8088", nil))
+		// HTTP server
+		err = http.ListenAndServe(addr, nil)
 	}
 	return
 }
@@ -88,12 +90,18 @@ func (s *Serve) renderTemplate(w http.ResponseWriter, templateName,
 	}
 }
 
+// textToHtml converts text to html
+func (s *Serve) textToHtml(txt string) string {
+	fortune = strings.Replace(fortune, "\n", "<br>\n", -1)
+	fortune = strings.Replace(fortune, "\r", "", -1)
+	return txt
+}
+
 // homeHandler home page handler
 func (s *Serve) homeHandler(w http.ResponseWriter, r *http.Request) {
 	title := "Teonet Fortune web-site"
 	fortune, _ := s.Fortune()
-	fortune = strings.Replace(fortune, "\n", "<br>\n", -1)
-	fortune = strings.Replace(fortune, "\r", "", -1)
+	fortune = s.textToHtml(fortune)
 	p := &Page{title, fortune}
 	s.renderTemplate(w, "home", title, p)
 }
