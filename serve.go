@@ -108,7 +108,11 @@ func (s *Serve) homeHandler(w http.ResponseWriter, r *http.Request) {
 
 // faviconHandler favicon handler
 func (s *Serve) faviconHandler(w http.ResponseWriter, r *http.Request) {
-	file := "/static/img/favicon.ico"
-	data, _ := f.ReadFile(file)
+	file := "static/img/favicon.ico"
+	data, err := f.ReadFile(file)
+	if err != nil {
+		log.Printf("faviconHandler read icon file error: %v", err)
+	}
+	w.Header().Set("Content-Type", "image/x-icon")
 	w.Write(data)
 }
