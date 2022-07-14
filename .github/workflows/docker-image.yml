@@ -1,0 +1,19 @@
+name: Docker build Image CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NAME: teofortune-web
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        env:
+          VERSION: 0.0.1
+        run: docker build --build-arg version="$VERSION" -t $NAME -f ./.github/Dockerfile .
