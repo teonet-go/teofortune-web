@@ -19,14 +19,17 @@ import (
 
 type Serve struct {
 	*Teonet
-	domain    string
-	templates *template.Template
+	domain      string
+	description string
+	templates   *template.Template
 }
 
 // Page struct send to HTML template
 type Page struct {
-	Name string
-	Body string
+	Title string
+	Name  string
+	Subj  string
+	Body  string
 }
 
 //go:embed static tmpl
@@ -34,8 +37,8 @@ var f embed.FS
 
 // newServe create Serve object and start http server which process http
 // requests and communicate with teonet to get / set page values
-func newServe(domain string, addr string, teo *Teonet) (err error) {
-	s := &Serve{teo, domain, nil}
+func newServe(domain, description, addr string, teo *Teonet) (err error) {
+	s := &Serve{teo, domain, description, nil}
 	err = s.serve(addr)
 	return
 }
@@ -79,8 +82,8 @@ func redirectTLS(w http.ResponseWriter, r *http.Request) {
 }
 
 // renderTemplate render template using Page or Rows structure
-func (s *Serve) renderTemplate(w http.ResponseWriter, templateName,
-	pageTitle string, p interface{}) {
+func (s *Serve) renderTemplate(w http.ResponseWriter, templateName string,
+	p interface{}) {
 
 	// Execute selected in function parameters template
 	err := s.templates.ExecuteTemplate(w, templateName+".html", p)
@@ -99,11 +102,11 @@ func (s *Serve) textToHtml(txt string) string {
 
 // homeHandler home page handler
 func (s *Serve) homeHandler(w http.ResponseWriter, r *http.Request) {
-	title := "Teonet Fortune web-site"
+	title := "Teonet Fortune"
 	fortune, _ := s.Fortune()
 	fortune = s.textToHtml(fortune)
-	p := &Page{title, fortune}
-	s.renderTemplate(w, "home", title, p)
+	p := &Page{title, title, s.description, fortune}
+	s.renderTemplate(w, "home", p)
 }
 
 // faviconHandler favicon handler

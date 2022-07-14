@@ -16,9 +16,16 @@ import (
 )
 
 const (
-	appShort   = "teofortune-web"
-	appName    = "Teonet fortune web-server microservice application"
-	appLong    = ""
+	appShort = "teofortune-web"
+	appName  = "Teonet fortune web-server microservice application"
+	appLong  = `
+		This is simple <a href="https://github.com/teonet-go">Teonet</a> 
+		web-server microservice application which get fortune message from 
+		<a href="https://github.com/teonet-go/teofortune">Teonet Fortune</a> 
+		microservice and show it in the web page.<br>
+		See source code at <a href="https://github.com/teonet-go/teofortune-web">
+		https://github.com/teonet-go/teofortune-web</a>
+	`
 	appVersion = "0.0.3"
 )
 
@@ -29,7 +36,7 @@ var domain, fortune, monitor string
 var Params struct {
 	appShort    string
 	port        int
-	httpAddr	string
+	httpAddr    string
 	stat        bool
 	hotkey      bool
 	showPrivate bool
@@ -69,7 +76,7 @@ func main() {
 	}
 
 	// Initialize and run web-server
-	err = newServe(domain, Params.httpAddr, teo)
+	err = newServe(domain, appLong, Params.httpAddr, teo)
 	if err != nil {
 		log.Panic(err)
 		return

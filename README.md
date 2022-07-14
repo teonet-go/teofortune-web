@@ -1,6 +1,6 @@
 # Teonet fortune web-server microservice
 
-This is simple [Teonet](https://github.com/teonet-go/teonet) web-server micriservice application which get fortune message from [Teonet Fortune](https://github.com/teonet-go/teofortune) microservice and show it in the site web page.
+This is simple [Teonet](https://github.com/teonet-go/teonet) web-server microservice application which get fortune message from [Teonet Fortune](https://github.com/teonet-go/teofortune) microservice and show it in the site web page.
 
 [![GoDoc](https://godoc.org/github.com/teonet-go/teofortune-web?status.svg)](https://godoc.org/github.com/teonet-go/teofortune-web/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/teonet-go/teofortune-web)](https://goreportcard.com/report/github.com/teonet-go/teofortune-web)
