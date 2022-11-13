@@ -56,9 +56,16 @@ func newTeonet() (teo *Teonet, err error) {
 		err = errors.New("can't connect to 'fortune', err: fortune address not set")
 		return
 	}
-	if err = teo.ConnectTo(fortune); err != nil {
+	for i := 1; ; i++ {
+		err = teo.ConnectTo(fortune)
+		if err == nil {
+			break
+		}
 		err = errors.New("can't connect to 'fortune', err: " + err.Error())
-		return
+		teo.Log().Error.Println(err)
+		if i >= 5 {
+			return
+		}
 	}
 
 	// Connet to fortune api

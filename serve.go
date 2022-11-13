@@ -9,7 +9,6 @@ package main
 
 import (
 	"embed"
-	"log"
 	"net/http"
 	"strings"
 	"text/template"
@@ -62,7 +61,7 @@ func (s *Serve) serve(addr string) (err error) {
 		// Redirect HTTP to HTTPS
 		go func() {
 			if err := http.ListenAndServe(":80", http.HandlerFunc(redirectTLS)); err != nil {
-				log.Fatalf("ListenAndServe error: %v", err)
+				s.Log().Error.Fatalf("ListenAndServe error: %v", err)
 			}
 		}()
 
@@ -70,6 +69,7 @@ func (s *Serve) serve(addr string) (err error) {
 		err = http.Serve(autocert.NewListener(domain), nil)
 	} else {
 		// HTTP server
+		s.Log().Debug.Printf("start listening for HTTP requests on %s", addr)
 		err = http.ListenAndServe(addr, nil)
 	}
 	return
@@ -114,7 +114,7 @@ func (s *Serve) faviconHandler(w http.ResponseWriter, r *http.Request) {
 	file := "static/img/favicon.ico"
 	data, err := f.ReadFile(file)
 	if err != nil {
-		log.Printf("faviconHandler read icon file error: %v", err)
+		s.Log().Error.Printf("faviconHandler read icon file error: %v", err)
 	}
 	w.Header().Set("Content-Type", "image/x-icon")
 	w.Write(data)

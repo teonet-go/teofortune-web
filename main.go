@@ -10,6 +10,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 	"time"
 
 	"github.com/teonet-go/teonet"
@@ -26,7 +27,9 @@ const (
 		See source code at <a href="https://github.com/teonet-go/teofortune-web">
 		https://github.com/teonet-go/teofortune-web</a>
 	`
-	appVersion = "0.0.3"
+	appVersion = "0.0.4"
+
+	appPort = "8080"
 )
 
 var appStartTime = time.Now()
@@ -49,14 +52,20 @@ func main() {
 	// Application logo
 	teonet.Logo(appName, appVersion)
 
+	// Get HTTP port from environment variable
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = appPort
+	}
+
 	// Parse application command line parameters
 	flag.StringVar(&Params.appShort, "name", appShort, "application short name")
 	flag.IntVar(&Params.port, "p", 0, "local port")
-	flag.StringVar(&Params.httpAddr, "addr", "localhost:8088", "http server local address")
+	flag.StringVar(&Params.httpAddr, "addr", ":"+port, "http server local address")
 	flag.BoolVar(&Params.stat, "stat", false, "show statistic")
 	flag.BoolVar(&Params.hotkey, "hotkey", false, "start hotkey menu")
 	flag.BoolVar(&Params.showPrivate, "show-private", false, "show private key")
-	flag.StringVar(&Params.loglevel, "loglevel", "NONE", "log level")
+	flag.StringVar(&Params.loglevel, "loglevel", "debugv", "log level")
 	flag.StringVar(&Params.logfilter, "logfilter", "", "log filter")
 	//
 	flag.StringVar(&domain, "domain", "", "domain name to process HTTP/s server")
@@ -64,6 +73,11 @@ func main() {
 	flag.StringVar(&monitor, "monitor", "", "monitor address")
 	//
 	flag.Parse()
+
+	// Get fortune address from environment variable
+	if len(fortune) == 0 {
+		fortune = os.Getenv("TEO_FORTUNE")
+	}
 
 	// Check requered parameters
 	teonet.CheckRequeredParams("fortune")
