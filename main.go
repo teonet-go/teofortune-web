@@ -27,7 +27,7 @@ const (
 		See source code at <a href="https://github.com/teonet-go/teofortune-web">
 		https://github.com/teonet-go/teofortune-web</a>
 	`
-	appVersion = "0.0.5"
+	appVersion = "0.0.6"
 
 	appPort = "8080"
 )
@@ -68,7 +68,11 @@ func main() {
 	flag.BoolVar(&Params.showPrivate, "show-private", false, "show private key")
 	flag.StringVar(&Params.loglevel, "loglevel", "debugv", "log level")
 	flag.StringVar(&Params.logfilter, "logfilter", "", "log filter")
-	flag.IntVar(&Params.directConnectDelay, "directconnect", 0, "use 'direct connect' to pear delay")
+	flag.IntVar(&Params.directConnectDelay, "directconnect", 1,
+		"make direct connect to remote IP:PORT of pear after this delay")
+	// The directConnectDelay used because Google Cloud Run app cant connect 
+	// using punch. The directConnect connect to the remote peers IP:ADDR and
+	// dows not wait punchers messages.  
 	//
 	flag.StringVar(&domain, "domain", "", "domain name to process HTTP/s server")
 	flag.StringVar(&fortune, "fortune", "", "fortune microservice address")
