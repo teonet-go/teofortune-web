@@ -43,7 +43,7 @@ func newTeonet() (teo *Teonet, err error) {
 	}
 
 	// Connect to teonet
-	for teo.Connect() != nil {
+	for teo.Connect(Params.directConnectDelay) != nil {
 		teo.Log().Error.Println("can't connect to Teonet, try again...")
 		time.Sleep(1 * time.Second)
 	}

@@ -27,7 +27,7 @@ const (
 		See source code at <a href="https://github.com/teonet-go/teofortune-web">
 		https://github.com/teonet-go/teofortune-web</a>
 	`
-	appVersion = "0.0.4"
+	appVersion = "0.0.5"
 
 	appPort = "8080"
 )
@@ -37,14 +37,15 @@ var domain, fortune, monitor string
 
 // Params is teonet command line parameters
 var Params struct {
-	appShort    string
-	port        int
-	httpAddr    string
-	stat        bool
-	hotkey      bool
-	showPrivate bool
-	loglevel    string
-	logfilter   string
+	appShort           string
+	port               int
+	httpAddr           string
+	stat               bool
+	hotkey             bool
+	showPrivate        bool
+	loglevel           string
+	logfilter          string
+	directConnectDelay int
 }
 
 func main() {
@@ -67,6 +68,7 @@ func main() {
 	flag.BoolVar(&Params.showPrivate, "show-private", false, "show private key")
 	flag.StringVar(&Params.loglevel, "loglevel", "debugv", "log level")
 	flag.StringVar(&Params.logfilter, "logfilter", "", "log filter")
+	flag.IntVar(&Params.directConnectDelay, "directconnect", 0, "use 'direct connect' to pear delay")
 	//
 	flag.StringVar(&domain, "domain", "", "domain name to process HTTP/s server")
 	flag.StringVar(&fortune, "fortune", "", "fortune microservice address")
