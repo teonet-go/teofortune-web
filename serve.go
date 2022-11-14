@@ -25,10 +25,14 @@ type Serve struct {
 
 // Page struct send to HTML template
 type Page struct {
-	Title string
-	Name  string
-	Subj  string
-	Body  string
+	Title         string
+	Name          string
+	Subj          string
+	Body          string
+	AppName       string
+	AppVersion    string
+	TeonetVersion string
+	Address       string
 }
 
 //go:embed static tmpl
@@ -105,7 +109,10 @@ func (s *Serve) homeHandler(w http.ResponseWriter, r *http.Request) {
 	title := "Teonet Fortune"
 	fortune, _ := s.Fortune()
 	fortune = s.textToHtml(fortune)
-	p := &Page{title, title, s.description, fortune}
+	p := &Page{
+		title, title, s.description, fortune, appName, appVersion, s.Version(),
+		s.Address(),
+	}
 	s.renderTemplate(w, "home", p)
 }
 

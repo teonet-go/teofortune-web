@@ -43,7 +43,7 @@ func newTeonet() (teo *Teonet, err error) {
 	}
 
 	// Connect to teonet
-	for teo.Connect(Params.directConnectDelay) != nil {
+	for teo.Connect() != nil {
 		teo.Log().Error.Println("can't connect to Teonet, try again...")
 		time.Sleep(1 * time.Second)
 	}
@@ -105,4 +105,9 @@ func (teo *Teonet) Fortune() (msg string, err error) {
 
 	msg = string(data)
 	return
+}
+
+// Version return teonet version
+func (teo *Teonet) Version() (msg string) {
+	return teonet.Version
 }

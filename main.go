@@ -18,7 +18,7 @@ import (
 
 const (
 	appShort = "teofortune-web"
-	appName  = "Teonet fortune web-server microservice application"
+	appName  = "Teonet fortune web application"
 	appLong  = `
 		This is simple <a href="https://github.com/teonet-go">Teonet</a> 
 		web-server microservice application which get fortune message from 
@@ -27,7 +27,7 @@ const (
 		See source code at <a href="https://github.com/teonet-go/teofortune-web">
 		https://github.com/teonet-go/teofortune-web</a>
 	`
-	appVersion = "0.0.8"
+	appVersion = "0.6.0"
 
 	appPort = "8080"
 )
@@ -37,15 +37,14 @@ var domain, fortune, monitor string
 
 // Params is teonet command line parameters
 var Params struct {
-	appShort           string
-	port               int
-	httpAddr           string
-	stat               bool
-	hotkey             bool
-	showPrivate        bool
-	loglevel           string
-	logfilter          string
-	directConnectDelay int
+	appShort    string
+	port        int
+	httpAddr    string
+	stat        bool
+	hotkey      bool
+	showPrivate bool
+	loglevel    string
+	logfilter   string
 }
 
 func main() {
@@ -68,11 +67,6 @@ func main() {
 	flag.BoolVar(&Params.showPrivate, "show-private", false, "show private key")
 	flag.StringVar(&Params.loglevel, "loglevel", "debug", "log level")
 	flag.StringVar(&Params.logfilter, "logfilter", "", "log filter")
-	flag.IntVar(&Params.directConnectDelay, "directconnect", 1,
-		"make direct connect to remote IP:PORT of pear after this delay")
-	// The directConnectDelay used because Google Cloud Run app cant connect
-	// using punch. The directConnect connect to the remote peers IP:ADDR and
-	// dows not wait punchers messages.
 	//
 	flag.StringVar(&domain, "domain", "", "domain name to process HTTP/s server")
 	flag.StringVar(&fortune, "fortune", "", "fortune microservice address")
