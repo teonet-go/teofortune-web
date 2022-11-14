@@ -27,7 +27,7 @@ const (
 		See source code at <a href="https://github.com/teonet-go/teofortune-web">
 		https://github.com/teonet-go/teofortune-web</a>
 	`
-	appVersion = "0.0.7"
+	appVersion = "0.0.8"
 
 	appPort = "8080"
 )

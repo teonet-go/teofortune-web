@@ -49,7 +49,7 @@ func newTeonet() (teo *Teonet, err error) {
 	}
 
 	// Print teonet address
-	teo.Log().Debug.Println("connected to teonet, address:", teo.Address())
+	// teo.Log().Debug.Println("connected to teonet, address:", teo.Address())
 
 	// Connet to fortune
 	if len(fortune) == 0 {

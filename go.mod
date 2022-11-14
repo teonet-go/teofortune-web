@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/teonet-go/teomon v0.5.14
-	github.com/teonet-go/teonet v0.5.40
+	github.com/teonet-go/teonet v0.5.41
 	golang.org/x/crypto v0.2.0
 )
 
